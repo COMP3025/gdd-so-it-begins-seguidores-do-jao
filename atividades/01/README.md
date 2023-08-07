@@ -4,12 +4,17 @@ Um "Game Design Document" (GDD) é um documento crucial para o desenvolvimento d
 
 1. **Visão Geral do Jogo:**
    - Resumo do jogo.
+   Vyn e Astryd são renegados pelo clan Jotunn, abandonados após uma exploração no Oeste da europa, e agora vagam pela continente como andarilhos, e agora eles precisam sobreviver, resistindo a ladrões, reis manipuladores em um continente o qual desconhecem, Vyn se vê em uma posição delicada pois como irmão mais velho de Astryd precisa protege-la.
    - Objetivo geral e principais características.
+   Em uma plataforma 2d, Vyn irá atravessar as fases derrotando inimigos pelo caminho, tendo como objetivo levar sua irmã de volta para sua terra na Groenlândia na esperança de que ela será aceita de volta.
+
 2. **Mecânica de Jogo:**
    - Descrição detalhada das principais mecânicas de jogo (como movimento, combate, interação do jogador, etc.).
+   Movimentação padrão, será possivel pular, atingir inimigos com socos e machados e atirar machados.
    - Regras e sistemas que governam o funcionamento do jogo.
 3. **História e Narrativa:**
    - Enredo do jogo, incluindo personagens principais e eventos importantes.
+   O clan Jotunn finalmente decide explorar o Oeste após ouvir história, 
    - Sequências de eventos que ocorrem durante o jogo (se houver uma história linear).
 4. **Personagens e Inimigos:**
    - Descrição dos personagens jogáveis e seus atributos únicos.
