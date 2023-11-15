@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://br4l0y2f4cy8o"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_qvbxd"]
+[ext_resource type="Texture2D" uid="uid://djes2ke0daarc" path="res://assets/Sprite Pack 7/3 - Gordon/Idle (48 x 48).png" id="2_625d8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hn2bd"]
+height = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5lbo"]
+atlas = ExtResource("2_625d8")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdwuv"]
+atlas = ExtResource("2_625d8")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q0ay"]
+atlas = ExtResource("2_625d8")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqukf"]
+atlas = ExtResource("2_625d8")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vt3sw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5lbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdwuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q0ay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqukf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody2D"]
+position = Vector2(1, -23)
+collision_mask = 2
+script = ExtResource("1_qvbxd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hn2bd")
+
+[node name="animacao" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -1.5)
+scale = Vector2(1, 1.0625)
+sprite_frames = SubResource("SpriteFrames_vt3sw")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.654641
+
+[node name="camera" type="Camera2D" parent="."]
