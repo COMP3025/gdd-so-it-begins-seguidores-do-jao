@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 150.0
+const JUMP_VELOCITY = -300.0
 const ATTACK_DAMAGE = 20.0
 const ATTACK_COOLDOWN = 0.5  # Tempo em segundos entre os ataques
 
