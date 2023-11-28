@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://k5q4go28jsao"]
+[gd_scene load_steps=31 format=3 uid="uid://k5q4go28jsao"]
 
 [ext_resource type="Texture2D" uid="uid://n27cmyyjb8lj" path="res://assets/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_0oq7r"]
 [ext_resource type="Script" path="res://scripts/stage_1.gd" id="1_efr42"]
@@ -16,6 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://dn0xs556nog3l" path="res://actors/enemy.tscn" id="12_hmvcs"]
 [ext_resource type="Script" path="res://scripts/spike_area.gd" id="15_4rlmu"]
 [ext_resource type="Texture2D" uid="uid://5a4gw6ona6wm" path="res://assets/Seasonal Tilesets/5 - Misc. universal tiles/Lava_frames (16 x 32).png" id="16_xov46"]
+[ext_resource type="Texture2D" uid="uid://b2m5o348potxc" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin1.png" id="17_2whup"]
+[ext_resource type="Script" path="res://scripts/hud_manager.gd" id="17_hvac4"]
+[ext_resource type="Texture2D" uid="uid://ca8wnch3jawvf" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin2.png" id="18_5j1l2"]
+[ext_resource type="Texture2D" uid="uid://ccp1aq15idjy8" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin3.png" id="19_yav2p"]
+[ext_resource type="Texture2D" uid="uid://bokkpu3nlc5yt" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin4.png" id="20_amsos"]
+[ext_resource type="Texture2D" uid="uid://kt5rje3lyvpw" path="res://assets/Mini FX, Items & UI/Common Pick-ups/Health_Kit (16 x 16).png" id="22_ls7ty"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_h2s0c"]
 tile_data = PackedInt32Array(0, 65537, 1, 65536, 65537, 2, 131072, 65537, 3, 1, 131073, 1, 65537, 131073, 2, 131073, 131073, 3, 2, 196609, 1, 65538, 196609, 2, 131074, 196609, 3)
@@ -412,6 +418,18 @@ shader_parameter/move_speed = 0.05
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_55bxy"]
 size = Vector2(211.5, 28.5)
 
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_pvlqh"]
+frames = 4
+speed_scale = 13.6
+frame_0/texture = ExtResource("17_2whup")
+frame_0/duration = 2.0
+frame_1/texture = ExtResource("18_5j1l2")
+frame_1/duration = 2.0
+frame_2/texture = ExtResource("19_yav2p")
+frame_2/duration = 2.0
+frame_3/texture = ExtResource("20_amsos")
+frame_3/duration = 2.0
+
 [node name="stage1" type="Node2D"]
 position = Vector2(314, 128)
 script = ExtResource("1_efr42")
@@ -600,5 +618,110 @@ scale = Vector2(1.01563, 1)
 texture = ExtResource("16_xov46")
 region_enabled = true
 region_rect = Rect2(0, 0, 210, 32)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_hvac4")
+
+[node name="container" type="MarginContainer" parent="HUD/control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="coins_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="coins_icon" type="TextureRect" parent="HUD/control/container/coins_container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AnimatedTexture_pvlqh")
+
+[node name="coins_count" type="Label" parent="HUD/control/container/coins_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "000"
+
+[node name="score_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="score_label" type="Label" parent="HUD/control/container/score_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "SCORE:"
+
+[node name="score_count" type="Label" parent="HUD/control/container/score_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "000000"
+
+[node name="timer_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="timer_label" type="Label" parent="HUD/control/container/timer_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "TIME: "
+
+[node name="timer_count" type="Label" parent="HUD/control/container/timer_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "00:00"
+
+[node name="heart_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="heart_icon" type="TextureRect" parent="HUD/control/container/heart_container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("22_ls7ty")
+
+[node name="heart_separator" type="Label" parent="HUD/control/container/heart_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "X"
+
+[node name="heart_count" type="Label" parent="HUD/control/container/heart_container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "03
+"
 
 [connection signal="body_entered" from="spike_area" to="spike_area" method="_on_body_entered"]
