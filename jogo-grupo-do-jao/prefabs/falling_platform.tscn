@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://d4nv2qiu8munl"]
+
+[ext_resource type="Script" path="res://scripts/falling_platform.gd" id="1_s26iq"]
+[ext_resource type="Texture2D" uid="uid://b8oymlxj56nxi" path="res://assets/Seasonal Tilesets/5 - Misc. universal tiles/fall-block.png" id="1_t3g83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwltk"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_sgjpr"]
+resource_name = "shake"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mo10i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_upv4i"]
+_data = {
+"RESET": SubResource("Animation_mo10i"),
+"shake": SubResource("Animation_sgjpr")
+}
+
+[node name="falling_platform" type="AnimatableBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_s26iq")
+
+[node name="texture" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("1_t3g83")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rwltk")
+one_way_collision = true
+
+[node name="respawn_timer" type="Timer" parent="."]
+
+[node name="anim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../respawn_timer")
+libraries = {
+"": SubResource("AnimationLibrary_upv4i")
+}
