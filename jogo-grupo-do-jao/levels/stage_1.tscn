@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://k5q4go28jsao"]
+[gd_scene load_steps=35 format=3 uid="uid://k5q4go28jsao"]
 
 [ext_resource type="Texture2D" uid="uid://n27cmyyjb8lj" path="res://assets/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_0oq7r"]
 [ext_resource type="Script" path="res://scripts/stage_1.gd" id="1_efr42"]
@@ -22,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://ccp1aq15idjy8" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin3.png" id="19_yav2p"]
 [ext_resource type="Texture2D" uid="uid://bokkpu3nlc5yt" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin4.png" id="20_amsos"]
 [ext_resource type="Texture2D" uid="uid://kt5rje3lyvpw" path="res://assets/Mini FX, Items & UI/Common Pick-ups/Health_Kit (16 x 16).png" id="22_ls7ty"]
+[ext_resource type="PackedScene" uid="uid://dytm7pp5a58ok" path="res://pause_menu.tscn" id="23_2ldk2"]
+[ext_resource type="Shader" path="res://shaders/transition.gdshader" id="24_1xiso"]
+[ext_resource type="Script" path="res://scripts/color_rect.gd" id="25_34yh0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_h2s0c"]
 tile_data = PackedInt32Array(0, 65537, 1, 65536, 65537, 2, 131072, 65537, 3, 1, 131073, 1, 65537, 131073, 2, 131073, 131073, 3, 2, 196609, 1, 65538, 196609, 2, 131074, 196609, 3)
@@ -430,6 +433,13 @@ frame_2/duration = 2.0
 frame_3/texture = ExtResource("20_amsos")
 frame_3/duration = 2.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kh2p6"]
+shader = ExtResource("24_1xiso")
+shader_parameter/lines = 10.0
+shader_parameter/threshold = 0.0
+shader_parameter/line_color_a = Color(1, 1, 1, 1)
+shader_parameter/line_color_b = Color(0, 0, 0, 1)
+
 [node name="stage1" type="Node2D"]
 position = Vector2(314, 128)
 script = ExtResource("1_efr42")
@@ -629,6 +639,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("17_hvac4")
+default_minutes = 2
 
 [node name="container" type="MarginContainer" parent="HUD/control"]
 layout_mode = 1
@@ -724,4 +735,22 @@ theme_override_font_sizes/font_size = 13
 text = "03
 "
 
+[node name="clock_timer" type="Timer" parent="HUD/control"]
+autostart = true
+
+[node name="pause_menu" parent="." instance=ExtResource("23_2ldk2")]
+
+[node name="transition" type="CanvasLayer" parent="."]
+
+[node name="color_rect" type="ColorRect" parent="transition"]
+material = SubResource("ShaderMaterial_kh2p6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("25_34yh0")
+
 [connection signal="body_entered" from="spike_area" to="spike_area" method="_on_body_entered"]
+[connection signal="timeout" from="HUD/control/clock_timer" to="HUD/control" method="_on_clock_timer_timeout"]
