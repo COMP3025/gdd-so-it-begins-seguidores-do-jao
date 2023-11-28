@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://k5q4go28jsao"]
+[gd_scene load_steps=37 format=3 uid="uid://k5q4go28jsao"]
 
 [ext_resource type="Texture2D" uid="uid://n27cmyyjb8lj" path="res://assets/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_0oq7r"]
 [ext_resource type="Script" path="res://scripts/stage_1.gd" id="1_efr42"]
@@ -23,8 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://bokkpu3nlc5yt" path="res://assets/Mini FX, Items & UI/Common Pick-ups/coin-sprites/coin4.png" id="20_amsos"]
 [ext_resource type="Texture2D" uid="uid://kt5rje3lyvpw" path="res://assets/Mini FX, Items & UI/Common Pick-ups/Health_Kit (16 x 16).png" id="22_ls7ty"]
 [ext_resource type="PackedScene" uid="uid://dytm7pp5a58ok" path="res://pause_menu.tscn" id="23_2ldk2"]
+[ext_resource type="Script" path="res://scripts/transition.gd" id="24_0u3xt"]
 [ext_resource type="Shader" path="res://shaders/transition.gdshader" id="24_1xiso"]
 [ext_resource type="Script" path="res://scripts/color_rect.gd" id="25_34yh0"]
+[ext_resource type="PackedScene" uid="uid://483y84s3eyu5" path="res://prefabs/goal.tscn" id="27_pwv7r"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_h2s0c"]
 tile_data = PackedInt32Array(0, 65537, 1, 65536, 65537, 2, 131072, 65537, 3, 1, 131073, 1, 65537, 131073, 2, 131073, 131073, 3, 2, 196609, 1, 65538, 196609, 2, 131074, 196609, 3)
@@ -534,6 +536,10 @@ position = Vector2(2580, 34)
 [node name="shard25" parent="coins" instance=ExtResource("11_keord")]
 position = Vector2(2608, 34)
 
+[node name="goal" parent="." instance=ExtResource("27_pwv7r")]
+position = Vector2(4440, 63)
+next_level = "res://levels/stage_1.tscn"
+
 [node name="player" parent="." instance=ExtResource("3_l8mi3")]
 position = Vector2(-198, 102)
 
@@ -594,6 +600,9 @@ centered = false
 [node name="moving_platform" parent="." instance=ExtResource("10_tg7yx")]
 position = Vector2(1975, 90)
 
+[node name="moving_platform2" parent="." instance=ExtResource("10_tg7yx")]
+position = Vector2(1179, 68)
+
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(1, -40)
 zoom = Vector2(1.5, 1.5)
@@ -607,6 +616,9 @@ drag_right_margin = 0.5
 
 [node name="enemies" parent="enemies2" instance=ExtResource("12_hmvcs")]
 position = Vector2(6, 119)
+
+[node name="enemies2" parent="enemies2" instance=ExtResource("12_hmvcs")]
+position = Vector2(65, 118)
 
 [node name="enemy" parent="enemies2" instance=ExtResource("12_hmvcs")]
 position = Vector2(3210, 70)
@@ -741,6 +753,7 @@ autostart = true
 [node name="pause_menu" parent="." instance=ExtResource("23_2ldk2")]
 
 [node name="transition" type="CanvasLayer" parent="."]
+script = ExtResource("24_0u3xt")
 
 [node name="color_rect" type="ColorRect" parent="transition"]
 material = SubResource("ShaderMaterial_kh2p6")
