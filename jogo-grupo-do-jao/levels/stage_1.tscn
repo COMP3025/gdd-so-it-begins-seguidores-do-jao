@@ -765,5 +765,11 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("25_34yh0")
 
+[node name="morte" parent="." instance=ExtResource("27_pwv7r")]
+position = Vector2(-323, 251)
+rotation = 1.5708
+scale = Vector2(1, 330)
+next_level = "res://levels/stage_1.tscn"
+
 [connection signal="body_entered" from="spike_area" to="spike_area" method="_on_body_entered"]
 [connection signal="timeout" from="HUD/control/clock_timer" to="HUD/control" method="_on_clock_timer_timeout"]
